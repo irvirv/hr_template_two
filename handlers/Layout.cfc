@@ -1,9 +1,6 @@
 component extends="coldbox.system.EventHandler"{
 	
 	
-	property name="NavService" inject="id:navigation.NavService";
-	
-	
 	
 	/**
 	* main menu
@@ -14,7 +11,6 @@ component extends="coldbox.system.EventHandler"{
 		prc.xe_listApps = "OHRApps.list";
 		prc.xe_listRoles = "OHRRoles.list";
 		prc.xe_listPositions = "OHRPositions.list";
-		prc.arr_Links = NavService.GetNavInfo();
 		return renderView(view="nav/mainleft") ;
 	}	
 	

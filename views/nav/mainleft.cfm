@@ -4,8 +4,7 @@
 	<div id="navscroll" class="leftnavscroll" ><!--- allows for scrolling on longer menus.  Can be removed for shorter ones. --->
 	<!--- psu logo --->
 	<div class="sidebar-header">
-		<!---<img src="#getSetting('appIncludesFolder')#/img/PS_HOR_REV_RGB_2C.png" class="img-fluid" alt="Penn State mark"/>--->
-		<img src="#getSetting('appIncludesFolder')#/img/ps_human_resources.png" class="img-fluid" alt="Penn State mark"/>
+		<a href="#prc.xe_OHRSite#"><img src="includes/img/ps_human_resources.png" class="img-fluid" alt="Penn State mark"/></a>
 	</div>
 	<!--- first nav group --->
 	<ul class="list-unstyled components">
@@ -23,36 +22,6 @@
 				</a>
 			</li>
 		</cfif> 
-		<cfloop from="1" to="#arrayLen(prc.arr_Links)#" index="i">
-			<cfif prc.arr_Links[i].navnewgroup eq 1>
-				<cfif i neq 1><!--- we don't want our top nav group to have a divider line above it --->
-					</ul>
-				</cfif>
-				<li>
-				<a href="##pageSubmenu#i#" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">#prc.arr_Links[i].navgrouptext#</a>
-				<ul class="collapse list-unstyled" id="pageSubmenu#i#">
-			</cfif>
-			<cfif prc.arr_Links[i].navItemType eq "event">
-				<!--- it's just an event name so build out the proper link --->
-				<cfset builtlink = event.buildLink( prc.arr_Links[i].navitemevent ) />
-				<cfif StructKeyExists(prc,"ActiveLink") AND prc.ActiveLink EQ prc.arr_Links[i].navitemevent>
-					<li class="active">
-						<a class="active" href="#builtlink#">#prc.arr_Links[i].navitemtext# <span class="sr-only">(current)</span></a>
-						<!---<a class="active" href="##">#prc.arr_Links[i].navitemtext# <span class="sr-only">(current)</span></a>---><!--- no link for demo --->
-					</li>
-				<cfelse>
-					<li>
-						<a href="#builtlink#">#prc.arr_Links[i].navitemtext#</a>
-						<!---<a href="##">#prc.arr_Links[i].navitemtext#</a>---><!--- no link for demo --->
-					</li>
-				</cfif>
-			<cfelse>
-				<li>
-					<!--- it must be plain url already --->
-					<a href="#prc.arr_Links[i].navitemevent#">#prc.arr_Links[i].navitemtext#</a>
-				</li>
-			</cfif>
-		</cfloop>
 	</ul>
 	<!---- second nav group --->
 	<ul class="list-unstyled components">
@@ -99,6 +68,7 @@
 			</li>
 		</cfif>
 		<!--- demo user rights --->
+		<!---
 		<cfif StructKeyExists(prc,"ActiveLink") AND prc.ActiveLink EQ "main.userrights">
 			<li class="active">
 				<a class="active" href="#event.buildLink( "main.userrights" )#">
@@ -112,6 +82,7 @@
 				</a>
 			</li>
 		</cfif>
+		--->
 		<!--- cached event --->
 		<cfif StructKeyExists(prc,"ActiveLink") AND prc.ActiveLink EQ "main.somecachedevent">
 			<li class="active">
@@ -123,23 +94,6 @@
 			<li>
 				<a href="#event.buildLink( "main.somecachedevent" )#">
 				cached event
-				</a>
-			</li>
-		</cfif>
-	</ul>
-	<!---- second nav group --->
-	<ul class="list-unstyled components">
-		<!--- docfinity functions --->
-		<cfif StructKeyExists(prc,"ActiveLink") AND prc.ActiveLink EQ "docfinity.index">
-			<li class="active">
-				<a class="active" href="#event.buildLink( "docfinity.index" )#">
-				Docfinity Functions
-				</a>
-			</li>
-		<cfelse>
-				<li>
-				<a href="#event.buildLink( "docfinity.index" )#">
-				Docfinity Functions
 				</a>
 			</li>
 		</cfif>

@@ -4,33 +4,45 @@
 	property name="config" inject="coldbox:configSettings";
 	// services
 	property name="SecurityService" inject="id:usermodels.SecurityService";
+
+
+	/**
+	prehandler
+	**/
+	public function prehandler(){
+		event.paramValue("accessID", "john");
+		prc.xe_OHRSite = 'https://hr.psu.edu/';	
+	}
+
+	
 	
 	/** 
 	* Default Action
 	**/
 	public function index(event,rc,prc){
-		if( SecurityService.CheckAccess() ){
-			prc.loggedInUser = wirebox.getInstance("usermodels.User").getAccessID();
-			prc.xe_OHRSite = 'https://hr.psu.edu/';
+		var strAccessResult = SecurityService.CheckAccess(
+			accessID= rc.accessID
+		);
+		if( strAccessResult.authorized ){
+			prc.loggedInUser = strAccessResult.authorizedUser;
 			event.setLayout("worklayout");
 			event.setView("main/index");
 		}else{
-			relocate(event="main.unauthorized", SSL=true);
+			relocate(event="main.unauthorized", queryString="accessID=#strAccessResult.authorizedUser#" );
 		}
 	}
 
 	/** 
-	* view Action
+	* Default Action
 	**/
-	public function view(event,rc,prc){
-		if( SecurityService.CheckAccess("view") ){
-			var viewData.oUser = wirebox.getInstance("usermodels.User");
-			prc.xe_OHRSite = 'https://hr.psu.edu/';
-			prc.ActiveLink = "main.view";
+	public function index_wrong(event,rc,prc){
+		if( listFindNoCase("Doug,Christian,John", rc.accessID) ){
+			prc.loggedInUser = rc.accessID;
 			event.setLayout("worklayout");
-			event.setView("main/view");
+			event.setView("main/index");
 		}else{
-			relocate(event="main.unauthorized", SSL=true);
+			log.error(rc.accessID & " attempted login but no employee or non-employee record found. Login failed.");
+			relocate(event="main.unauthorized", queryString="accessID=#rc.accessID#" );
 		}
 	}
 
@@ -39,51 +51,44 @@
 	* sample table
 	**/
 	public function table(event,rc,prc){
-		var viewData.oUser = wirebox.getInstance("usermodels.User");
-		prc.xe_OHRSite = 'https://hr.psu.edu/';
-		prc.ActiveLink = "main.table";
-		prc.loggedInUser = wirebox.getInstance("usermodels.User").getAccessID();
-		event.setLayout("worklayout");
-		event.setView("main/table");
+		var strAccessResult = SecurityService.CheckAccess(
+			accessID="john"
+		);
+		if( strAccessResult.authorized ){
+			prc.loggedInUser = strAccessResult.authorizedUser;
+			prc.ActiveLink = "main.table";
+		}else{
+			relocate(event="main.unauthorized", queryString="accessID=#strAccessResult.authorizedUser#" );
+		}
 	}
 
 	/** 
 	* sample form
 	**/
 	public function form(event,rc,prc){
-		var viewData.oUser = wirebox.getInstance("usermodels.User");
-		prc.xe_OHRSite = 'https://hr.psu.edu/';
-		prc.ActiveLink = "main.form";
-		prc.loggedInUser = wirebox.getInstance("usermodels.User").getAccessID();
-		event.setLayout("worklayout");
-		event.setView("main/form");
+		var strAccessResult = SecurityService.CheckAccess(
+			accessID="john"
+		);
+		if( strAccessResult.authorized ){
+			prc.loggedInUser = strAccessResult.authorizedUser;
+			prc.ActiveLink = "main.form";
+		}else{
+			relocate(event="main.unauthorized", queryString="accessID=#strAccessResult.authorizedUser#" );
+		}
 	}
 
 	/** 
 	* sample list
 	**/
 	public function list(event,rc,prc){
-		var viewData.oUser = wirebox.getInstance("usermodels.User");
-		prc.xe_OHRSite = 'https://hr.psu.edu/';
-		prc.ActiveLink = "main.list";
-		prc.loggedInUser = wirebox.getInstance("usermodels.User").getAccessID();
-		event.setLayout("worklayout");
-		event.setView("main/list");
-	}
-
-	/** 
-	* user rights
-	**/
-	public function userrights(event,rc,prc){	
-		if( SecurityService.CheckAccess() ){
-			var viewData.oUser = wirebox.getInstance("usermodels.User");
-			prc.xe_OHRSite = 'https://hr.psu.edu/';
-			prc.ActiveLink = "main.userrights";
-			prc.loggedInUser = wirebox.getInstance("usermodels.User").getAccessID();
-			event.setLayout("worklayout");
-			event.setView(view="main/userrights", args=viewData);
+		var strAccessResult = SecurityService.CheckAccess(
+			accessID="john"
+		);
+		if( strAccessResult.authorized ){
+			prc.loggedInUser = strAccessResult.authorizedUser;
+			prc.ActiveLink = "main.list";
 		}else{
-			relocate(event="main.unauthorized", SSL=true);
+			relocate(event="main.unauthorized", queryString="accessID=#strAccessResult.authorizedUser#" );
 		}
 	}
 
@@ -93,7 +98,6 @@
 	* cache can be cleared with  - cachebox.getCache("template").clearAllEvents();
 	**/
 	public function somecachedevent(event,rc,prc) cache="true" cacheTimeout="30" cacheLastAccessTimeout="15" {
-		prc.xe_OHRSite = 'https://hr.psu.edu/';
 		prc.ActiveLink = "main.somecachedevent";
 		prc.loggedInUser = wirebox.getInstance("usermodels.User").getAccessID(); // note this will not display proper user to visitor #2
 		prc.xe_logout = "main.logout";
@@ -105,9 +109,8 @@
 	* not an authorized user
 	**/
 	public function unauthorized(event,rc,prc){
-		prc.xe_OHRSite = 'https://hr.psu.edu/';
 		prc.ActiveLink = "main.unauthorized";
-		prc.loggedInUser = wirebox.getInstance("usermodels.User").getAccessID();
+		prc.loggedInUser = rc.accessID;
 		prc.xe_logout = "main.logout";
 		event.setLayout("worklayout");
 		event.setView("main/unauthorized");

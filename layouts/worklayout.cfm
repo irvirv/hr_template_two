@@ -9,24 +9,24 @@
 		<cfoutput>
 			<base href="#event.getHTMLBaseURL()#" />
 			<!--- Bootstrap CSS CDN --->
-      <link rel="stylesheet" href="#getSetting('appIncludesFolder')#/css/main.min.css">
+      <link rel="stylesheet" href="includes/css/main.min.css">
       <link rel="stylesheet" href="includes/css/awards.css">
-      <link rel="stylesheet" href="includes/css/main.css">
+      <link rel="stylesheet" href="includes/css/main2.css">
       <link rel="stylesheet" href="includes/css/token-input-facebook.css">
 	  <link rel="stylesheet" href="includes/css/token-input.css">
-	  <link rel="stylesheet" href="#getSetting('appIncludesFolder')#/css/themes/flick/jquery-ui.min.css">
+	  <link rel="stylesheet" href="includes/css/themes/flick/jquery-ui.min.css">
 
 		<!--- Font Awesome JS --->
 		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
       <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
       <!--- jQuery Custom Scroller CDN --->
-      <script src="#getSetting('appIncludesFolder')#/js/jquery-3.4.1.min.js"></script>
-      <script src="#getSetting('appIncludesFolder')#/js/popper.min.js"></script>
-      <script src="#getSetting('appIncludesFolder')#/js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="#getSetting('appIncludesFolder')#/js/bootstrap.min.js"></script>
-	  <script src="#getSetting('appIncludesFolder')#/js/jquery.tokeninput.js"></script>
+      <script src="includes/js/jquery-3.4.1.min.js"></script>
+      <script src="includes/js/popper.min.js"></script>
+      <script src="includes/js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="includes/js/bootstrap.min.js"></script>
+	  <script src="includes/js/jquery.tokeninput.js"></script>
 
-	  <script src="#getSetting('appIncludesFolder')#/js/jquery-ui.min.js"></script>
+	  <script src="includes/js/jquery-ui.min.js"></script>
 		<script>
 			$(document).ready(function(){
 				$( document ).on("focus", ".dField", function(){

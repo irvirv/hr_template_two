@@ -45,10 +45,15 @@ component {
 			invalidEventHandler      : "",
 			customErrorTemplate      : "",
 			// Application Aspects
-			handlerCaching           : false,
+			// Rescan handlers on each request, turn OFF in production please
+			handlersIndexAutoReload  : true,
+			// Deactivate singleton caching of the handlers, turn ON in production pleaese
+			handlerCaching 			 : false,
+			// allow an event to be cached if desired?
 			eventCaching             : false,
+			// allow for a veiw to be cached if desired?
 			viewCaching              : false,
-			// Will automatically do a mapDirectory() on your `models` for you.
+			// Will automatically do a mapDirectory() on your 'models' for you.
 			autoMapModels            : true,
 			// Auto converts a json body payload into the RC
 			jsonPayloadToRC          : true
@@ -56,10 +61,38 @@ component {
 
 		/**
 		 * --------------------------------------------------------------------------
+		 * Application Logging (https://logbox.ortusbooks.com)
+		 * --------------------------------------------------------------------------
+		 * By Default we log to the console, but you can add many appenders or destinations to log to.
+		 * You can also choose the logging level of the root logger, or even the actual appender.
+		 */
+		logBox = {
+			// Define Appenders
+			appenders : { coldboxTracer : { class : "coldbox.system.logging.appenders.ConsoleAppender" } },
+			// Root Logger
+			root      : { levelmax : "INFO", appenders : "*" },
+			// Implicit Level Categories
+			info      : [ "coldbox.system" ]
+		};
+
+		/**
+		 * --------------------------------------------------------------------------
+		 * Layout Settings
+		 * --------------------------------------------------------------------------
+		 */
+		layoutSettings = {
+			defaultLayout = "worklayout.cfm",
+			defaultView   = ""
+		};
+
+		/**
+		 * --------------------------------------------------------------------------
 		 * Custom Settings
 		 * --------------------------------------------------------------------------
 		 */
-		settings = {};
+		settings = {
+			hrSite = "demo site"
+		};
 
 		/**
 		 * --------------------------------------------------------------------------
@@ -86,28 +119,6 @@ component {
 			exclude : []
 		};
 
-		/**
-		 * --------------------------------------------------------------------------
-		 * Application Logging (https://logbox.ortusbooks.com)
-		 * --------------------------------------------------------------------------
-		 * By Default we log to the console, but you can add many appenders or destinations to log to.
-		 * You can also choose the logging level of the root logger, or even the actual appender.
-		 */
-		logBox = {
-			// Define Appenders
-			appenders : { coldboxTracer : { class : "coldbox.system.logging.appenders.ConsoleAppender" } },
-			// Root Logger
-			root      : { levelmax : "INFO", appenders : "*" },
-			// Implicit Level Categories
-			info      : [ "coldbox.system" ]
-		};
-
-		/**
-		 * --------------------------------------------------------------------------
-		 * Layout Settings
-		 * --------------------------------------------------------------------------
-		 */
-		layoutSettings = { defaultLayout : "", defaultView : "" };
 
 		/**
 		 * --------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 <cfoutput>
-    <link rel="stylesheet" href="#getSetting('appIncludesFolder')#/css/main.min.css">
+    <link rel="stylesheet" href="includes/css/main.min.css">
 </cfoutput>
 
 <div class="alert alert-warning" role="alert">

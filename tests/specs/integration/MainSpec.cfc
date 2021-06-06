@@ -42,19 +42,6 @@ component
 
 			it( "can render the homepage", function() {
 				var event = this.get( "main.index" );
-				expect( event.getValue( name = "welcomemessage", private = true ) ).toBe( "Welcome to ColdBox!" );
-			} );
-
-			it( "can render some restful data", function() {
-				var event = this.post( "main.data" );
-
-				debug( event.getHandlerResults() );
-				expect( event.getRenderedContent() ).toBeJSON();
-			} );
-
-			it( "can do a relocation", function() {
-				var event = execute( event = "main.doSomething" );
-				expect( event.getValue( "relocate_event", "" ) ).toBe( "main.index" );
 			} );
 
 			it( "can startup executable code", function() {
