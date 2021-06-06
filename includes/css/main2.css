@@ -1,0 +1,8 @@
+.sidebar_header_margins {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.leftnavscroll {
+    height: 100vh;
+    overflow-y: auto;
+}
