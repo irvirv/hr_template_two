@@ -10,7 +10,7 @@
 	prehandler
 	**/
 	public function prehandler(){
-		event.paramValue("accessID", "john");
+		event.paramValue("accessID", "christian");
 		prc.xe_OHRSite = 'https://hr.psu.edu/';	
 	}
 
@@ -52,7 +52,7 @@
 	**/
 	public function table(event,rc,prc){
 		var strAccessResult = SecurityService.CheckAccess(
-			accessID="john"
+			accessID=rc.accessID
 		);
 		if( strAccessResult.authorized ){
 			prc.loggedInUser = strAccessResult.authorizedUser;
@@ -62,12 +62,13 @@
 		}
 	}
 
+
 	/** 
 	* sample form
 	**/
 	public function form(event,rc,prc){
 		var strAccessResult = SecurityService.CheckAccess(
-			accessID="john"
+			accessID=rc.accessID
 		);
 		if( strAccessResult.authorized ){
 			prc.loggedInUser = strAccessResult.authorizedUser;
@@ -82,7 +83,7 @@
 	**/
 	public function list(event,rc,prc){
 		var strAccessResult = SecurityService.CheckAccess(
-			accessID="john"
+			accessID=rc.accessID
 		);
 		if( strAccessResult.authorized ){
 			prc.loggedInUser = strAccessResult.authorizedUser;

@@ -26,13 +26,11 @@
     "installPaths":{
         "coldbox":"coldbox/",
         "testbox":"testbox/",
-        "cbmessagebox":"modules/cbmessagebox/",
-        "cbdebugger":"modules/cbdebugger/"
+        "cbmessagebox":"modules/cbmessagebox/"
     },
     "dependencies":{
         "coldbox":"^6.0.0",
-        "cbmessagebox":"^4.0.0+58",
-        "cbdebugger":"^3.1.1+164"
+        "cbmessagebox":"^4.0.0+58"
     },
     "scripts":{},
     "testbox":{
